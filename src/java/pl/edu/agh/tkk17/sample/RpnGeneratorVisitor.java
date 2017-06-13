@@ -36,4 +36,14 @@ public class RpnGeneratorVisitor implements NodeVisitor
         String value = node.getValue();
         this.output.println("push $" + value);
     }
+	
+	public void visit(NodeSub node)
+	{
+        throw new UnsupportedOperationException();
+    }
+	
+	public void visit(NodeDiv node)
+	{
+        throw new UnsupportedOperationException();
+    }
 }

@@ -29,6 +29,9 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
             this.end = end;
             if (!end) {
                 this.character = (char) character;
+				if (this.character == ' ') {
+                    this.readChar();
+                }
             }
         } catch (IOException e) {
             throw new UncheckedIOException("Scanner input exception.", e);
@@ -51,22 +54,27 @@ public class Scanner implements Iterator<Token>, Iterable<Token>
 
         if (character == '+') {
             token = this.makeToken(TokenType.ADD);
-            this.readChar();
+        } else if (character == '-') {
+            token = this.makeToken(TokenType.SUB);
         } else if (character == '*') {
             token = this.makeToken(TokenType.MUL);
-            this.readChar();
+        } else if (character == '/') {
+            token = this.makeToken(TokenType.DIV);
         } else if (character >= '0' && character <= '9') {
             String value = String.valueOf(character);
             token = this.makeToken(TokenType.NUM, value);
-            this.readChar();
+        } else if (character == '(') {
+            token = this.makeToken(TokenType.LBR);
+        } else if (character == ')') {
+            token = this.makeToken(TokenType.RBR);
         } else if (character == '\n' || character == '\u0000') {
             token = this.makeToken(TokenType.END);
-            this.readChar();
         } else {
             String location = this.locate(this.position);
             throw new UnexpectedCharacterException(character, location);
         }
 
+        this.readChar();
         return token;
 
     }
