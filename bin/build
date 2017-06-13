@@ -1,0 +1,10 @@
+#!/bin/bash
+
+base="$(dirname $0)/.."
+dest="$base/build/java"
+sp="$base/src/java"
+src="$base/src/java/pl/edu/agh/tkk17/sample"
+
+mkdir -p "$dest"
+javac -d "$dest" -sourcepath "$sp" "$src/Compiler.java"
+javac -d "$dest" -sourcepath "$sp" "$src/Interpreter.java"
